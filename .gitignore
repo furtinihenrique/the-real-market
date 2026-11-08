@@ -1,0 +1,13 @@
+#Python venv
+venv/
+.venv/
+
+#Pycache
+backend/app/__pycache__/
+
+#Postman resources
+.postman/
+
+#Pytest cache
+tests/__pycache__/
+.pytest_cache/
