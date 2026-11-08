@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from fastapi import status
 import requests
-import pytest
+
 
 app = FastAPI()
 
-class TestClass:
+class TestBackend:
     def test_api_health(self):
         data = {
             "status_code": status.HTTP_200_OK,
