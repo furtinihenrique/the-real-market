@@ -41,11 +41,23 @@ def read_csv(start_date, end_date):
         for row in data:
             dates.append(row)
 
-"""
+    i = 0
+    start_date_index = 0
+    end_date_index = 0
     for day in dates:
+        i += 1
         if day["Date"] == start_date:
-            i = dates[day]
-            print(i)
-"""      
+            start_date_index = i
+        elif day["Date"] == end_date:
+            end_date_index = i
+
+    required_dates_data = []
+    sentinel = True
+    while(sentinel):
+        required_dates_data.append(dates[start_date_index])
+        if(start_date_index == end_date_index): sentinel = False
+        start_date_index += 1
+
+    print(required_dates_data)
 
 
