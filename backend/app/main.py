@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi import status
+import api.schemas.brent.brentRequest as brentRequest
 import brent_data
 
 #Start the API
@@ -20,7 +21,7 @@ def health_test():
     return data
 
 @app.post("/brent")
-async def get_data_filtered(requestModel: brent_data.RequestModel):
+async def get_data_filtered(requestModel: brentRequest.RequestModel):
     start_date = requestModel.start_date
     end_date = requestModel.end_date
     brent_data.get_brent_data()

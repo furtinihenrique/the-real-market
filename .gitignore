@@ -3,15 +3,13 @@ venv/
 .venv/
 
 #Pycache
-backend/app/__pycache__/
+__pycache__*
 
 #Postman resources
 .postman/
 
-#Pytest cache
-tests/__pycache__/
+#Pytest cach
 .pytest_cache/
-backend/app/api/schemas/__pycache__/
 
 #Env secrets
 backend/app/.env
