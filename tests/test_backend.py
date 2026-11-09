@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from fastapi import status
 import requests
 
-
 app = FastAPI()
 
 class TestBackend:
@@ -19,4 +18,3 @@ class TestBackend:
         api_url = "http://127.0.0.1:8000/health"
         api_request = requests.get(api_url).json()
         assert data == api_request
-            
