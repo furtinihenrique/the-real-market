@@ -22,6 +22,6 @@ def health_test():
 @app.get("/brent")
 def get_data():
     brent_data.get_brent_data()
-    print(brent_data.read_csv("2026-10-22", "2026-10-26"))
+    brent_data.read_csv("2026-10-22", "2026-10-26")
     
      
