@@ -1,26 +1,12 @@
-from pydantic import BaseModel, ConfigDict
 from pathlib import Path
 from dotenv import  load_dotenv
-from enum import StrEnum
 from decimal import *
 import os
 import csv
-import datetime
+
 import httpx
 
 load_dotenv()
-
-#Classes for requests 
-class Commodity(StrEnum):
-    BRENT = "BRE"
-
-
-class RequestModel(BaseModel) :
-    model_config = ConfigDict(extra='allow')
-
-    commodity: Commodity
-    start_date: str
-    end_date: str
 
 #Data retrieval
 def get_brent_data():
@@ -41,10 +27,11 @@ def read_csv(start_date, end_date):
     end_date_index = 0
     for day in dates:
         i += 1
-        if day["Date"] == start_date:
+        if day["Date"] == str(start_date):
             start_date_index = i
-        elif day["Date"] == end_date:
+        elif day["Date"] == str(end_date):
             end_date_index = i
+            break
 
     required_dates_data = []
     sentinel = True
@@ -52,6 +39,5 @@ def read_csv(start_date, end_date):
         required_dates_data.append(dates[start_date_index])
         if(start_date_index == end_date_index): sentinel = False
         start_date_index += 1
+
     return required_dates_data
-
-
