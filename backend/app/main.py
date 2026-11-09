@@ -1,27 +1,9 @@
 from fastapi import FastAPI
 from fastapi import status
-from enum import StrEnum
-from pydantic import BaseModel, ConfigDict
-from pathlib import Path
-import get_brent_data
-
-
+import brent_data
 
 #Start the API
 app = FastAPI()
-
-#Classes for requests 
-"""
-class Commodity(StrEnum):
-    BRENT = "BRE"
-
-class RequestModel(BaseModel) :
-    model_config = ConfigDict(extra='allow')
-
-    commodity: Commodity
-    start_date: datetime.date
-    end_date: datetime.date
-"""
 
 #Default route for tests
 @app.get("/health")
@@ -39,6 +21,7 @@ def health_test():
 
 @app.get("/brent")
 def get_data():
-    return get_brent_data.get_brent_data()
+    brent_data.get_brent_data()
+    print(brent_data.read_csv("2026-10-22", "2026-10-26"))
     
      
