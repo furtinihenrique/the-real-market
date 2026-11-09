@@ -19,9 +19,12 @@ def health_test():
     }
     return data
 
-@app.get("/brent")
-def get_data():
+@app.post("/brent")
+async def get_data_filtered(requestModel: brent_data.RequestModel):
+    start_date = requestModel.start_date
+    end_date = requestModel.end_date
     brent_data.get_brent_data()
-    brent_data.read_csv("2026-10-22", "2026-10-26")
+    data = brent_data.read_csv(start_date, end_date)
+    return data
     
      

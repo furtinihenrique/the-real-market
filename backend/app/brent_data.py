@@ -19,13 +19,8 @@ class RequestModel(BaseModel) :
     model_config = ConfigDict(extra='allow')
 
     commodity: Commodity
-    start_date: datetime.date
-    end_date: datetime.date
-
-class ResponseModel(BaseModel):
-    commodity: Commodity
-    date: datetime.date
-    price: Decimal
+    start_date: str
+    end_date: str
 
 #Data retrieval
 def get_brent_data():
@@ -57,7 +52,6 @@ def read_csv(start_date, end_date):
         required_dates_data.append(dates[start_date_index])
         if(start_date_index == end_date_index): sentinel = False
         start_date_index += 1
-
-    print(required_dates_data)
+    return required_dates_data
 
 
