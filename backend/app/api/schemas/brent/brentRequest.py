@@ -14,8 +14,7 @@ class RequestModel(BaseModel) :
     start_date: datetime.date
     end_date: datetime.date
 
-    @classmethod
-    @model_validator(mode="after")
+    @model_validator(mode = "after")
     def validate(self):
         if self.end_date < self.start_date:
             raise ValueError("end_date must be greater than start date")
