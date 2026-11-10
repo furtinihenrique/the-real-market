@@ -38,3 +38,34 @@ class TestForBackend:
         api_request = requests.post(api_url,json=data)
         assert api_request.status_code == 200
 
+    def test_valid_brent_data(self):
+        data = {
+            "commodity":"BRE",
+            "start_date": "2025-10-23",
+            "end_date": "2025-10-30"
+        }
+        api_url = "http://127.0.0.1:8000/brent"
+        api_request = requests.post(api_url,json=data)
+        assert api_request.status_code == 200
+
+    def test_invalid_brent_data(self):
+        data = {
+            "commodity":"BRE",
+            "start_date": "2025-10-25",
+            "end_date": "2025-11-02"
+        }
+        api_url = "http://127.0.0.1:8000/brent"
+        api_request = requests.post(api_url,json=data)
+        assert api_request.status_code == 200
+
+    def test_same_day_brent_data(self):
+        data = {
+            "commodity":"BRE",
+            "start_date": "2025-11-20",
+            "end_date": "2025-11-20"
+        }
+        api_url = "http://127.0.0.1:8000/brent"
+        api_request = requests.post(api_url,json=data)
+        assert api_request.status_code == 200
+        
+

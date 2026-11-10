@@ -6,7 +6,8 @@ venv/
 __pycache__*
 
 #Postman resources
-.postman/
+postman*
+.postman*
 
 #Pytest cach
 .pytest_cache/
