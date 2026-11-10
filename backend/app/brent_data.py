@@ -15,6 +15,7 @@ def get_brent_data():
     Path("brent-daily.csv").write_bytes(response.content)
     return "Brent data loaded!"
 
+
 def read_csv(start_date, end_date):
     dates = []
     with open("brent-daily.csv", "r") as file:
@@ -22,16 +23,24 @@ def read_csv(start_date, end_date):
         for row in data:
             dates.append(row)
 
-    i = 0
+    found_start_date = False
+    found_end_date = False
+    i = -1
     start_date_index = 0
     end_date_index = 0
     for day in dates:
         i += 1
         if day["Date"] == str(start_date):
             start_date_index = i
-        elif day["Date"] == str(end_date):
+            found_start_date = True
+        
+        if day["Date"] == str(end_date):
             end_date_index = i
+            found_end_date = True
             break
+
+    if found_start_date == False or found_end_date == False: return "Invalid date"
+        
 
     required_dates_data = []
     sentinel = True
