@@ -1,9 +1,9 @@
 from pathlib import Path
 from dotenv import  load_dotenv
 from decimal import *
+import datetime
 import os
 import csv
-
 import httpx
 
 load_dotenv()
@@ -49,4 +49,19 @@ def read_csv(start_date, end_date):
         if(start_date_index == end_date_index): sentinel = False
         start_date_index += 1
 
+    print(type(required_dates_data[0]))
     return required_dates_data
+
+def normalize_brent_data(list):
+    normalized_data = []
+    format = '%Y-%m-%d'
+
+    for item in list:
+        normalized_data.append({'Date': datetime.datetime.strptime(item["Date"], format).date(), 'Price': Decimal(item["Price"])})
+    return normalized_data
+
+def get_only_prices(list):
+    prices = []
+    for item in list:
+        prices.append(item["Price"])
+    return prices

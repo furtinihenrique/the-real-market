@@ -6,7 +6,6 @@ from pydantic import BaseModel, ConfigDict, model_validator
 class Commodity(StrEnum):
     BRENT = "BRE"
 
-
 class RequestModel(BaseModel) :
     model_config = ConfigDict(extra='ignore')
 
