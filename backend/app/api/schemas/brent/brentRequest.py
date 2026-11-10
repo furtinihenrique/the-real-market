@@ -8,7 +8,7 @@ class Commodity(StrEnum):
 
 
 class RequestModel(BaseModel) :
-    model_config = ConfigDict(extra='allow')
+    model_config = ConfigDict(extra='ignore')
 
     commodity: Commodity
     start_date: datetime.date
