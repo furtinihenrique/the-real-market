@@ -5,6 +5,7 @@ import datetime
 import os
 import csv
 import httpx
+import sys
 
 load_dotenv()
 
@@ -17,47 +18,44 @@ def get_brent_data():
 
 
 def read_csv(start_date, end_date):
-    dates = []
-    with open("brent-daily.csv", "r") as file:
-        data = csv.DictReader(file)
-        for row in data:
-            dates.append(row)
-
-    found_start_date = False
-    found_end_date = False
-    i = -1
     start_date_index = 0
     end_date_index = 0
-    for day in dates:
-        i += 1
-        if day["Date"] == str(start_date):
-            start_date_index = i
-            found_start_date = True
-        
-        if day["Date"] == str(end_date):
-            end_date_index = i
-            found_end_date = True
-            break
+    found_start_date = False
+    found_end_date = False
+    dates = []
+    required_filtered_dates_data = []
+    i = -1
+    try:
+        with open("brent-daily.csv", "r") as file:
+            data = csv.DictReader(file)
+            for row in data: 
+                i+=1
+                dates.append(row)
 
-    if found_start_date == False or found_end_date == False: return "Invalid date"
-        
+                if dates[i]["Date"] == str(end_date):
+                    found_end_date = True
+                    required_filtered_dates_data.append(dates[i])
+                    break
+                
+                if dates[i]["Date"] == str(start_date):
+                    start_date_index = i
+                    required_filtered_dates_data.append(dates[i])
 
-    required_dates_data = []
-    sentinel = True
-    while(sentinel):
-        required_dates_data.append(dates[start_date_index])
-        if(start_date_index == end_date_index): sentinel = False
-        start_date_index += 1
+                if start_date_index != 0 and i > start_date_index:
+                    required_filtered_dates_data.append(dates[i])
+    except IOError:
+        print("Error while opening the file.")
+        sys.exit()
 
-    print(type(required_dates_data[0]))
-    return required_dates_data
+    if start_date_index == 0 or found_end_date == False: return "Invalid date"
+    return required_filtered_dates_data
 
 def normalize_brent_data(list):
     normalized_data = []
     format = '%Y-%m-%d'
 
     for item in list:
-        normalized_data.append({'Date': datetime.datetime.strptime(item["Date"], format).date(), 'Price': Decimal(item["Price"])})
+        normalized_data.append({'Date': datetime.datetime.strptime(item['Date'], format).date(), 'Price': Decimal(item["Price"])})
     return normalized_data
 
 def get_only_prices(list):

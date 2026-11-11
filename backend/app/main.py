@@ -21,13 +21,13 @@ def health_test():
     }
     return data
 
+#/brent route
 @app.post("/brent")
 async def get_data_filtered(requestModel: brentRequest.RequestModel):
-    start_date = requestModel.start_date
-    end_date = requestModel.end_date
     brent_data.get_brent_data()
-    data = brent_data.get_only_prices(brent_data.normalize_brent_data(brent_data.read_csv(start_date, end_date)))
-    total_variation = brentCalculus.calculate_total_return(data)
+    normalized_data = brent_data.normalize_brent_data(brent_data.read_csv(requestModel.start_date, requestModel.end_date))
+    prices = brent_data.get_only_prices(normalized_data)
+    total_variation = brentCalculus.calculate_total_return(prices)
     return (f"Total variation in the period: {total_variation}%")
     
      
