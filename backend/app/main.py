@@ -28,6 +28,7 @@ async def get_data_filtered(requestModel: brentRequest.RequestModel):
     normalized_data = brent_data.normalize_brent_data(brent_data.read_csv(requestModel.start_date, requestModel.end_date))
     prices = brent_data.get_only_prices(normalized_data)
     total_variation = brentCalculus.calculate_total_return(prices)
-    return (f"Total variation in the period: {total_variation}%")
-    
+    average_price = brentCalculus.average_price(prices)
+    return (f"Total variation in the period: {total_variation}% and average price ${average_price}")
+
      
