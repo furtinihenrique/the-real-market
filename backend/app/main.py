@@ -37,12 +37,13 @@ async def get_data_filtered(requestModel: brentRequest.RequestModel):
         "last_date_requested_price" : last_requested_price
     }
 
-@app.get("/brent/lastest")
+@app.get("/brent/latest")
 def get_last_infos():
-    last_price, last_date = brent_data.get_last_price()
+    last_price, last_date, variation = brent_data.get_two_last_prices()
     return {
         "last_price": last_price,
-        "last_date": last_date
+        "last_date": last_date,
+        "variation": variation
     }
 
      

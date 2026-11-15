@@ -63,9 +63,15 @@ def get_only_prices(list):
         prices.append(item["Price"])
     return prices
 
-def get_last_price():
+def get_two_last_prices():
     with open("brent-daily.csv", "r") as file:
-        last_line = file.readlines()[-1]
+        lines = file.readlines()
+
+    last_line = lines[-1]
+    sub_last_line = lines[-2]
+
     last_price = Decimal(last_line[11:16])
     last_date = last_line[0:10]
-    return last_price, last_date
+    sub_last_price = Decimal(sub_last_line[11:16])
+    variation = ((last_price - sub_last_price)/sub_last_price) * 100
+    return last_price, last_date, round(Decimal(variation),3)
