@@ -20,9 +20,9 @@ st.title("The Real Market")
 
 if time.hour > 5 and time.hour < 12:
     st.write("Good Morning!")
-elif time.hour > 12 and time.hour < 5:
-    st.write("Good Morning!")
-elif time.hour > 5 and time.hour < 8:
+elif time.hour > 12 and time.hour < 17:
+    st.write("Good Afternoon!")
+elif time.hour > 17 and time.hour < 20:
     st.write("Good Evening!")
 else:
     st.write("Good Night!")
