@@ -16,7 +16,7 @@ time = datetime.now()
 image = Image.open("favicon.png")
 st.set_page_config("The Real Market", image, "wide")
 
-st.title("The Real Market")
+st.title("The Real Market", text_alignment="center")
 
 if time.hour > 5 and time.hour < 12:
     st.write("Good Morning!")
@@ -73,6 +73,17 @@ with st.container(border=True):
 st.button("Analyze the market ➔", width="stretch")
 st.divider()
 
+st.header("About: ")
+colunm1, colunm2 = st.columns(2, border=True)
+with colunm1:
+    st.image("favicon.png", width=30)
+    st.write(f"Name: The Real Market")
+    st.write("A quantitative market analisys platform.")
+    st.write("© 2026 The Real Market. All rights reserved.")
+with colunm2:
+    st.write("Developed by Henrique Araujo Furtini")
+    st.link_button(":man_technologist: GitHub", "https://github.com/furtinihenrique")
+    st.link_button(":bar_chart: Data Source (EIA and DataHub)", "https://www.eia.gov/")
+    st.link_button(":streamlit: API Documentation", "https://docs.streamlit.io/")
 st.divider()
 
-st.divider()
