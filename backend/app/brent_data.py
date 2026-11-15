@@ -19,8 +19,6 @@ def get_brent_data():
 
 def read_csv(start_date, end_date):
     start_date_index = 0
-    end_date_index = 0
-    found_start_date = False
     found_end_date = False
     dates = []
     required_filtered_dates_data = []
@@ -35,6 +33,7 @@ def read_csv(start_date, end_date):
                 if dates[i]["Date"] == str(end_date):
                     found_end_date = True
                     required_filtered_dates_data.append(dates[i])
+                    last_date_requested_price = dates[i]["Price"]
                     break
                 
                 if dates[i]["Date"] == str(start_date):
@@ -48,7 +47,7 @@ def read_csv(start_date, end_date):
         sys.exit()
 
     if start_date_index == 0 or found_end_date == False: return "Invalid date"
-    return required_filtered_dates_data
+    return required_filtered_dates_data, last_date_requested_price
 
 def normalize_brent_data(list):
     normalized_data = []
