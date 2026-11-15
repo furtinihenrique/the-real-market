@@ -33,7 +33,7 @@ def read_csv(start_date, end_date):
                 if dates[i]["Date"] == str(end_date):
                     found_end_date = True
                     required_filtered_dates_data.append(dates[i])
-                    last_date_requested_price = dates[i]["Price"]
+                    last_requested_price = Decimal(dates[i]["Price"])
                     break
                 
                 if dates[i]["Date"] == str(start_date):
@@ -47,7 +47,7 @@ def read_csv(start_date, end_date):
         sys.exit()
 
     if start_date_index == 0 or found_end_date == False: return "Invalid date"
-    return required_filtered_dates_data, last_date_requested_price
+    return required_filtered_dates_data, last_requested_price
 
 def normalize_brent_data(list):
     normalized_data = []
@@ -62,3 +62,10 @@ def get_only_prices(list):
     for item in list:
         prices.append(item["Price"])
     return prices
+
+def get_last_price():
+    with open("brent-daily.csv", "r") as file:
+        last_line = file.readlines()[-1]
+    last_price = Decimal(last_line[11:16])
+    last_date = last_line[0:10]
+    return last_price, last_date
